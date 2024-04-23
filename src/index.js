@@ -45,8 +45,6 @@ app.post('/carro', (request, response) => {
     proxCarro++;
 
     response.status(201).send('Carro adicionado com sucesso');
-
-    response.status(201).send({mensagem: 'Recurso criado com sucesso!'});
 });
 
 // GET - READ
