@@ -79,7 +79,7 @@ app.get('/filtro', (request, response) => {
     }
     const dados = carroFiltrado.map((carro)=> `ID: ${carro.id} | Modelo: ${carro.modelo} | Marca: ${carro.marca} | Cor: ${carro.cor} | Preço: ${carro.preco}`)
 
-    response.status(200).send(dados)
+    response.status(200).json({success: true, data: dados})
 });
 
 // VERIFICAR A PORTA
