@@ -70,7 +70,7 @@ app.get('/filtro', (request, response) => {
     const carroFiltrado = carros.filter(carro => carro.marca === marca);
 
     if (carros.length === 0) {
-        response.status(404).send('Nenhum carro cadastrado!' );
+        response.status(404).send('Nenhum carro cadastrado!');
     }
     if(carroFiltrado.length === 0){
         response.status(404).send('Nenhum carro com esta marca cadastrada!' );
