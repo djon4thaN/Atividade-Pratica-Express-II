@@ -9,7 +9,7 @@ let proxCarro = 1;
 
 // POST - CREATE
 app.post('/carro', (request, response) => {
-
+    
     const modelo = request.body.modelo;
     const marca = request.body.marca;
     const ano = Number(request.body.ano);
@@ -33,6 +33,7 @@ app.post('/carro', (request, response) => {
     }
 
     let novoCarro = {
+        id: proxCarro,
         modelo: modelo,
         marca: marca,
         ano: ano,
@@ -41,7 +42,6 @@ app.post('/carro', (request, response) => {
     }
 
     carros.push(novoCarro);
-
     proxCarro++;
 
     response.status(201).send('Carro adicionado com sucesso');
@@ -56,7 +56,7 @@ app.get('/carro', (request, response) => {
         response.status(400).send('Não existe nenhum carro cadastrado!')
     }
 
-    const dados = carros.map((carro)=> `Os carros cadastrados são: ID: ${carro.proxCarro} | Modelo: ${carro.modelo} | Marca: ${carro.marca} | Ano: ${carro.ano} | Cor: ${carro.cor} | Preço: ${carro.preco}`)
+    const dados = carros.map((carro)=> `ID: ${carro.id} | Modelo: ${carro.modelo} | Marca: ${carro.marca} | Ano: ${carro.ano} | Cor: ${carro.cor} | Preço: ${carro.preco}`)
 
     response.status(200).send(dados)
 });
@@ -74,11 +74,12 @@ app.get('/filtro', (request, response) => {
     if (carros.length === 0) {
         response.status(404).send('Nenhum carro cadastrado!' );
     }
-    if(carroFiltrado != marca){
-        response.status(404).send('Esta marca não foi encontrada!');
+    if(carroFiltrado.length === 0){
+        response.status(404).send('Nenhum carro com esta marca cadastrada!' );
     }
-    
-    response.status(201).send(carroFiltrado);
+    const dados = carroFiltrado.map((carro)=> `ID: ${carro.id} | Modelo: ${carro.modelo} | Marca: ${carro.marca} | Cor: ${carro.cor} | Preço: ${carro.preco}`)
+
+    response.status(200).send(dados)
 });
 
 // VERIFICAR A PORTA
