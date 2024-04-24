@@ -80,5 +80,36 @@ app.get('/filtro', (request, response) => {
     response.status(200).json({success: true, data: dados})
 });
 
+app.put('/carro/:idBuscado', (request, response)=> {
+    const cor = request.body.cor;
+    const preco = request.body.preco;
+
+    const idBuscado = Number(request.params.idBuscado);
+
+    if(!idBuscado){
+        response.status(400).send(JSON.stringify({Mensagem: 'Por favor, insira um ID válido!'}))
+    }
+
+    const idVerificado = carros.findIndex(carro => carro.id === idBuscado)
+
+    if(idVerificado === -1){
+        response.status(400).send(JSON.stringify({Mensagem: 'ID não encontrado.'}))
+    }
+    if (!cor){
+        response.status(400).send(JSON.stringify({Mensagem: 'Digite uma cor válida!'}))
+    }
+    if (!preco){
+        response.status(400).send(JSON.stringify({Mensagem: 'Digite um preço válido!'}))
+    }
+    if(idVerificado !== -1){
+        const veiculo = carros[idVerificado]
+        veiculo.cor = cor;
+        veiculo.preco = preco;
+
+        response.status(200).send(JSON.stringify({Mensagem: 'Carro atualizado com sucesso!', 
+        data: veiculo}))
+    }
+})
+
 // VERIFICAR A PORTA
 app.listen(8080, () => console.log('Servidor iniciado'));
