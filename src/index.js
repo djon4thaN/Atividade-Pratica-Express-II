@@ -80,6 +80,7 @@ app.get('/filtro', (request, response) => {
     response.status(200).json({success: true, data: dados})
 });
 
+// PUT - UPDATE
 app.put('/carro/:idBuscado', (request, response)=> {
     const cor = request.body.cor;
     const preco = request.body.preco;
