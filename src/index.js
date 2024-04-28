@@ -159,9 +159,16 @@ app.delete('/deletar/:idBuscado', (request, response) => {
 app.post('/signup', async(request, response)=>{
     const data = request.body
 
+    const nome = data.nome;
     const email = data.email
     const senha = data.senha
 
+    if(!nome){
+        response
+        .status(404)
+        .send(JSON.stringify({Mensagem: 'Digite um nome válido!'}))
+        return;
+    }
     if(!email){
         response
         .status(400)
@@ -176,7 +183,7 @@ app.post('/signup', async(request, response)=>{
     }
 
     const verificarEmail = usuario.find((user)=> user.email === email)
-
+    
     if(verificarEmail){
         response.status(400).send(JSON.stringify({ Mensagem: 'Este email já foi cadastrado!'}))
         return;
@@ -186,6 +193,7 @@ app.post('/signup', async(request, response)=>{
 
     let novoUsuario = {
         id: proxUsuario,
+        nome: data.nome,
         email: data.email,
         senha: senhaCript
     }
