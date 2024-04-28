@@ -183,7 +183,7 @@ app.post('/signup', async(request, response)=>{
     }
 
     const verificarEmail = usuario.find((user)=> user.email === email)
-    
+
     if(verificarEmail){
         response.status(400).send(JSON.stringify({ Mensagem: 'Este email já foi cadastrado!'}))
         return;
@@ -205,7 +205,7 @@ app.post('/signup', async(request, response)=>{
 })
 
 // LOGIN
-app.post('/login', async(request, response)=> {
+app.get('/login', async(request, response)=> {
     const data = request.body;
 
     const email = data.email;
